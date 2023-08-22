@@ -9,20 +9,20 @@ public class 설탕배달 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        // %5kg -> N
-        int mod5 = n%5;
-
-        // /5kg -> 개수
-        int cnt5kg = n/5;
-
-        // mod5%3kg -> return -1
-        if(mod5 % 3 > 0 && n%3 != 0){ System.out.println(-1); return;} 
-
-        // /3kg -> 개수
-        if(mod5%3 > 0 && n%3 == 0){
-            System.out.println(n/3);
-        }else
-            System.out.println(mod5/3 + cnt5kg);
+        int cnt=0;
+        // 5의 배수인가? 아니라면 -3 반복
+        while(n!=0){
+            if(n%5 == 0){
+                n-=5;
+                cnt++;
+            }else if(n<0){
+                System.out.println(-1); return;
+            }else{
+                n-=3;
+                cnt++;
+            }
+        }
+        System.out.println(cnt);
 
     }
 }
