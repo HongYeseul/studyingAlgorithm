@@ -1,4 +1,4 @@
-package 백준;
+package 백준.그리디;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
