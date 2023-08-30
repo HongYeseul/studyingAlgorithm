@@ -1,9 +1,8 @@
 package 백준;
+// #1268 임시반장정하기(https://www.acmicpc.net/problem/1268)
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class 임시반장정하기 {
@@ -21,49 +20,39 @@ public class 임시반장정하기 {
                 data[i][j] = Integer.parseInt(st.nextToken());
             }
         }
+
+        int [][] sameClass = new int[n][n]; // (가로)학생번호->(세로)학생번호
+        // : ex.1번학생이 몇 번 학생과 같은 반을 했었는지 나타내는 테이블
         
-        int [] classArr = new int[10];
-        int [] stuArr = new int[n+1];
-
-        // 학년별 반에 대한 인원수 종합
-        for(int i=0; i<5; i++){
-            for(int j=0; j<n; j++){
-                // System.out.print(data[j][i]);
-                classArr[data[j][i]]++;
-            }
-
-            // 가장 많은 사람이 있었던 반에 소속 됐던 학생 기록
-            int maxIdx = Arrays.stream(classArr).max().getAsInt();
-
-            int maxClass=0;
-            for(int j=0; j<10; j++) 
-                if(classArr[j] == maxIdx){
-                    maxClass = j; break;
+        // 1. 1학년 기준 1번 학생부터 동일 값이 있는지 찾는다.
+        for(int grade=0; grade<5; grade++){
+            for(int stuNum=0; stuNum<n; stuNum++){
+                // 2. '1.'학생과 같은 반이었던 학생에 표시한다.
+                int stuClass = data[stuNum][grade];
+                for(int j=0; j<n; j++){
+                    if(stuNum!= j && stuClass == data[j][grade]){ // 자신의 반 번호는 무시
+                        // sameClass에 저장
+                        sameClass[stuNum][j] = 1;
+                    }
                 }
-
-            for(int j=0; j<10; j++) System.out.print(classArr[j]);
-            System.out.println();
-
-            System.out.println("최대값: "+maxIdx + " 많은 사람 있는 반: "+ maxClass );
-            for(int j=0; j<n; j++){
-                if(maxIdx == 1) break;
-                if(data[j][i] == maxClass) stuArr[j]++;
-            } classArr = new int[10];
-
-            System.out.print("학생>> ");
-            for(int j=0; j<(n+1); j++) System.out.print(stuArr[j]);
-            System.out.println();
+            }
         }
 
-        // stuArr에서 가장 높은 값 가지고 있는 학생 찾기
-        int maxIdx = Arrays.stream(stuArr).max().getAsInt();
-
-        int result=0;
-        for(int j=0; j<10; j++) 
-            if(stuArr[j] == maxIdx){
-                result = j; break;
+        // 가로를 기준으로 sameClass Sum값 구하기
+        // = 같은 반이었던 학생 수
+        int sum = 0;
+        int result = 0; // 같은 반이었던 학생 수가 많은 학생 번호 넣을 곳
+        for(int i=0; i<n; i++){
+            int temp = 0;
+            for(int j=0; j<n; j++){
+                temp += sameClass[i][j];
             }
-        
+            if(sum<temp){
+                sum = temp;
+                result = i;
+            }
+        }
+
         System.out.println(result+1);
     }
 }
