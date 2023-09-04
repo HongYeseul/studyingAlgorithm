@@ -35,37 +35,31 @@ public class Dday {
             Dday[i] = Integer.parseInt(st.nextToken());
         }
 
-        // System.out.println("입력값: "+ today[0]+today[1]+today[2]+ " D-day "+ Dday[0]+Dday[1]+Dday[2]);
-
         int sum = 0;
+        // 오늘, D-day의 년도는 제외하고 해당 년도의 날짜 수 세기
         for(int year=today[0]; year<=Dday[0]; year++){
             for(int month=1; month<=12; month++){
-                if(year == today[0] && month<=today[1]){ continue; }
-                else if(year == Dday[0] && month == Dday[1]){ break; }
+                if(year == today[0] && month<=today[1]){ continue; } // 오늘의 년도 pass
+                else if(year == Dday[0] && month == Dday[1]){ break; } // d-day년도 pass
 
-                // System.out.println(month);
-                if(isLeap(year)){
+                if(isLeap(year)){ // 윤년이었을 때 해당 달의 일 수 더하기
                     sum+=(leapYear[month]);
-                }else{
+                }else{ // 평년이었을 때 해당 달의 일 수 더하기
                     sum+=(commonYear[month]);
                 }
             }
         }
 
-        // System.out.println("중간점검값: "+ sum);
+        // 윤년인지 파악 후 해당 달의 시작 날(오늘 날짜의 day)~마지막 날
         int startDate = 0;
-        if((today[0]/4)==0 && ((today[0]/100)!=0 || (today[0]/400)==0)){
-            startDate = leapYear[today[1]];
+        if(isLeap(today[0])){ // 오늘 날짜의 년도가 윤년인지 확인
+            startDate = leapYear[today[1]]; // 
         }else{ startDate = commonYear[today[1]]; }
-
-        for(int i=today[2]; i<startDate; i++){
-            sum++;
-        }
-        for(int i=1; i<=Dday[2]; i++){
-            sum++;
-        }
+        sum+=(startDate-today[2]);
         
-        if(sum >= 365000) System.out.println("gg");
+        sum+=Dday[2]; // D-day의 일 수 더하기
+
+        if(sum >= 365243) System.out.println("gg");
         else System.out.println("D-"+sum);
     }
 }
