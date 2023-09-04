@@ -22,50 +22,27 @@ public class 좋은구간 {
 
         Arrays.sort(data);
 
-        if(n == 1 && data[0] != x){
-            System.out.println(data[0]-x-1);
-            return;
-        }
-        int a = 0, b = 0;
+        
+        int smallest = 0, highest = 0;
         for(int i=0; i<n; i++){
             if(data[i] == x){
                 System.out.println("0");
                 return;
             }else if(data[i] < x && x < data[i+1]){
-                a = data[i]; b = data[i+1];
+                smallest = data[i]; highest = data[i+1];
                 break;
             }
         }
-        System.out.println(a +" "+ b + " x = " + x);
+        if(data[0]>x) highest = data[0];
+
+        System.out.println(smallest +" "+ highest + " x = " + x);
         System.out.println("========계산========");
 
         int sum = 0;
-        for(int i=(a+1); i<=x; i++){
-            System.out.println("i= " + i + " x = "+ x);
-            if(i<x){
-                for(int j=(x); j<=(b-1); j++){
-                    System.out.println("i= " + i + " j= "+j+ " x = "+ x);
-                    sum++;
-                }
-            }else{
-                for(int j=(x+1); j<=(b-1); j++){
-                    System.out.println("i= " + i + " j= "+j+ " x = "+ x);
-                    sum++;
-                }
-            }
-            // if(i <= x){ //
-            //     for(int j=i; j<x; j++){
-            //         System.out.println("i= " + i + " j= "+j+ " x = "+ x);
-            //         sum++;
-            //     }System.out.println();
-            // }
-            // else{ 
-            //     break;
-            //     // for(int j=i; j<b; j++){
-            //     //     System.out.println("i= " + i + " j= "+j+ " x = "+ x);
-            //     //     sum++;
-            //     // }System.out.println();
-            // }
+        for(int i=(smallest+1); i<=x; i++){
+            System.out.println("i= " + i + " highest= "+(highest-1)+ " x = "+ x);
+            System.out.println("sum: "+ sum);
+            sum+=( (highest-1) -i);
         }
 
         System.out.println(sum);
