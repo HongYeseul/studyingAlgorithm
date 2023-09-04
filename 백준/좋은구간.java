@@ -24,27 +24,19 @@ public class 좋은구간 {
 
         
         int smallest = 0, highest = 0;
+        
         for(int i=0; i<n; i++){
-            if(data[i] == x){
-                System.out.println("0");
-                return;
-            }else if(data[i] < x && x < data[i+1]){
-                smallest = data[i]; highest = data[i+1];
-                break;
-            }
-        }
-        if(data[0]>x) highest = data[0];
-
-        System.out.println(smallest +" "+ highest + " x = " + x);
-        System.out.println("========계산========");
-
-        int sum = 0;
-        for(int i=(smallest+1); i<=x; i++){
-            System.out.println("i= " + i + " highest= "+(highest-1)+ " x = "+ x);
-            System.out.println("sum: "+ sum);
-            sum+=( (highest-1) -i);
+            if(data[i]<x) smallest = data[i];
+            else if(data[i]>x && highest == 0) highest = data[i];
+            else if(data[i] == x){ System.out.println(0); return; }
         }
 
-        System.out.println(sum);
+        smallest++; highest--;
+
+        // (highest-x) : x ~ highest 범위의 경우의 수
+        // (x-smallest)*(highest-x+1) : smallest ~ x ~ heighest 범위의 경우의 수
+        int result = (highest - x) + (x-smallest)*(highest-x+1);
+
+        System.out.println(result);
     }
 }
