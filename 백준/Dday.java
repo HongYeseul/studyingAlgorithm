@@ -3,11 +3,19 @@ package 백준;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 import java.util.StringTokenizer;
 
 public class Dday {
     
+    public static boolean isLeap(int year){
+        if(year%4 ==0){
+            if(year%100 == 0)
+                return year%400 == 0? true:false;
+            else return true;
+        }else return false;
+    }
+
+
     public static void main(String[] args) throws Exception{
         // 입력 받기
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,7 +44,7 @@ public class Dday {
                 else if(year == Dday[0] && month == Dday[1]){ break; }
 
                 // System.out.println(month);
-                if((year/4)==0 && ((year/100)!=0 || (year/400)==0)){
+                if(isLeap(year)){
                     sum+=(leapYear[month]);
                 }else{
                     sum+=(commonYear[month]);
