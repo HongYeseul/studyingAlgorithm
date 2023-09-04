@@ -11,6 +11,10 @@ public class Dday {
     public static void main(String[] args) throws Exception{
         // 입력 받기
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int [] commonYear = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int [] leapYear = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};        
+
         int [] today = new int [3];
         int [] Dday = new int [3];
 
@@ -25,28 +29,35 @@ public class Dday {
 
         // System.out.println("입력값: "+ today[0]+today[1]+today[2]+ " D-day "+ Dday[0]+Dday[1]+Dday[2]);
 
+        int sum = 0;
+        for(int year=today[0]; year<=Dday[0]; year++){
+            for(int month=1; month<=12; month++){
+                if(year == today[0] && month<=today[1]){ continue; }
+                else if(year == Dday[0] && month == Dday[1]){ break; }
+
+                // System.out.println(month);
+                if((year/4)==0 && ((year/100)!=0 || (year/400)==0)){
+                    sum+=(leapYear[month]);
+                }else{
+                    sum+=(commonYear[month]);
+                }
+            }
+        }
+
+        // System.out.println("중간점검값: "+ sum);
+        int startDate = 0;
+        if((today[0]/4)==0 && ((today[0]/100)!=0 || (today[0]/400)==0)){
+            startDate = leapYear[today[1]];
+        }else{ startDate = commonYear[today[1]]; }
+
+        for(int i=today[2]; i<startDate; i++){
+            sum++;
+        }
+        for(int i=1; i<=Dday[2]; i++){
+            sum++;
+        }
         
-
-        Calendar todayTz = Calendar.getInstance();
-        Calendar DdayTz =Calendar.getInstance();
-
-        todayTz.set(today[0], today[1], today[2]);
-        DdayTz.set(Dday[0], Dday[1], Dday[2]);
-
-        long cnt_dday = DdayTz.getTimeInMillis();
-        long cnt_today = todayTz.getTimeInMillis();
-        long result = cnt_dday - cnt_today;
-        result = result / 1000 / 60 / 60 / 24;
-
-        if(Dday[0] > (today[0]+1000)){ // 1000년 보다 많이 남았을 경우
-            System.out.println("gg");
-            return;
-        }else if(Dday[0]==(today[0]+1000) && Dday[1]>=today[1] && Dday[2] >= today[2]){ // 1000년 차이 날 경우
-            System.out.println("gg");
-            return;
-        }else System.out.println("D-"+(int)result);
-        // if(result >= 365243) System.out.println("gg");
-        // else System.out.println("D-"+(int)result);
-        
+        if(sum >= 365000) System.out.println("gg");
+        else System.out.println("D-"+sum);
     }
 }
