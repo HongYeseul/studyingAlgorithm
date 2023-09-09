@@ -17,36 +17,28 @@ public class 대칭차집합 {
         int aNum = Integer.parseInt(st.nextToken());
         int bNum = Integer.parseInt(st.nextToken());
 
-        Integer [] a = new Integer[aNum];
-        Integer [] b = new Integer[bNum];
+        Set<Integer> setA = new HashSet<Integer>();
+        Set<Integer> setB = new HashSet<Integer>();
 
         st = new StringTokenizer(br.readLine());
         for(int i=0; i<aNum; i++){
-            a[i] = Integer.parseInt(st.nextToken());
+            setA.add(Integer.parseInt(st.nextToken()));
         }
 
         st = new StringTokenizer(br.readLine());
         for(int i=0; i<bNum; i++){
-            b[i] = Integer.parseInt(st.nextToken());
+            setB.add(Integer.parseInt(st.nextToken()));
         }
-
-        Set<Integer> setA = new HashSet<Integer>(Arrays.asList(a));
-        Integer[] arrA = setA.toArray(new Integer[setA.size()]);
-
-        Set<Integer> setB = new HashSet<Integer>(Arrays.asList(b));
-        Integer[] arrB = setB.toArray(new Integer[setB.size()]);
-
-
-        Arrays.sort(arrA);
-        Arrays.sort(arrB);
 
         int result = 0;
-        for(int i=0; i<arrA.length; i++){
-            if(Arrays.binarySearch(arrB, arrA[i])>=0)
+
+        for (Integer a : setA) {
+            if(!setB.contains(a))
                 result++;
         }
-        for(int i=0; i<arrB.length; i++){
-            if(Arrays.binarySearch(arrA, arrB[i])>=0)
+
+        for (Integer b : setB) {
+            if(!setA.contains(b))
                 result++;
         }
 
