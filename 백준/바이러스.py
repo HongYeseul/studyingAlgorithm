@@ -22,3 +22,18 @@ def DFS(node):
 
 DFS(1)
 print(sum(visited)-1)
+
+# BFS로 푸는 법.
+# from collections import deque
+
+# q = deque()
+# q.append(1)
+
+# while len(q) > 0 :
+#     node = q.popleft()
+#     visited[node] = 1
+
+#     for next in graph[node]:
+#         if visited[next] == 1:
+#             continue
+#         q.append(next)
