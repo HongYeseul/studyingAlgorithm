@@ -1,4 +1,5 @@
 #16918 봄버맨 Silver1 (https://www.acmicpc.net/problem/16918)
+#9월 2주차 알고리즘 스터디 과제용 문제1
 
 X, Y, N = map(int, input().split())
 
