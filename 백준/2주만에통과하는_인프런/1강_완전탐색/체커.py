@@ -1,16 +1,5 @@
 #1090 체커 Platinum4 (https://www.acmicpc.net/problem/1090)
 
-n = int(input())
-x = []
-y = []
-
-for i in range(n):
-    tx, ty = map(int, input().split())
-    x.append(tx)
-    y.append(ty)
-
-print(x, y)
-
 # 1번 아이디어
 # x, y를 구분 해서 계산 해 준 뒤 합쳐서 최소값을 알려주면 된다!
 
@@ -29,3 +18,42 @@ print(x, y)
 # 2차원으로 커진다면 x축의 정답가능성 n개와 y축의 정답 가능성 n개를 모두 조합한 경우의 수인 n*n개를 확인하여 정답을 찾아야 한다.
 # 따라서 해당 예시(15,14) (15,16) (14,15) (16,15)의 경우
 # (14, 14) (14, 15) (14, 16) (15,14) (15,15) (15,16) ... (16,16) 총 9개의 좌표를 확인 해야 한다!
+
+n = int(input())
+x = []
+y = []
+
+for i in range(n):
+    tx, ty = map(int, input().split())
+    x.append(tx)
+    y.append(ty)
+
+minX = min(x)
+minY = min(y)
+maxX = max(x)
+maxY = max(y)
+
+# print("min: ", minX, minY)
+# print("max: ", maxX, maxY)
+
+sum = list(100_000_000 for _ in range( (maxY-minY+1)*(maxX-minX+1)))
+
+cnt=0
+
+for i in range(minX, maxX+1):
+    for j in range(minY, maxY+1):
+        
+        temp = 0
+        for k in range(n):
+            # 범위 내 있는 점과 각 좌표의 위치까지의 거리 측정
+            # print(i, j, " 좌표: ",x[k], i, x[k]-i," y값: ",y[k], j, y[k]-j)
+            temp += abs(x[k]-i)
+            temp += abs(y[k]-j)
+        
+        # print(temp)
+        if(sum[cnt] > temp): sum[cnt] = temp
+
+        cnt+=1
+
+# print(sum)
+print(min(sum))
