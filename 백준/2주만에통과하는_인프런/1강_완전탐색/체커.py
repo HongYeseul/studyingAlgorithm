@@ -33,27 +33,33 @@ minY = min(y)
 maxX = max(x)
 maxY = max(y)
 
-# print("min: ", minX, minY)
-# print("max: ", maxX, maxY)
+sum = [ list(100_000_000 for _ in range(n)) for _ in range((maxY-minY+1)*(maxX-minX+1)) ]
 
-sum = list(100_000_000 for _ in range( (maxY-minY+1)*(maxX-minX+1)))
+# 아예 순서가 잘못 돼서 코드를 수정했다.
+# 체커가 있는 위치에서 모든 좌표로의 거리를 계산 해 비교 해야한다...
 
-cnt=0
+for co in range(n):
+    cnt = 0
+    for i in range(minX, maxX+1):
+        for j in range(minY, maxY+1):
+            # 체커가 있는 위치에서 모든 좌표로의 거리 계산
+            sum[cnt][co] = abs(i-x[co])+abs(j-y[co])
 
-for i in range(minX, maxX+1):
-    for j in range(minY, maxY+1):
-        
-        temp = 0
-        for k in range(n):
-            # 범위 내 있는 점과 각 좌표의 위치까지의 거리 측정
-            # print(i, j, " 좌표: ",x[k], i, x[k]-i," y값: ",y[k], j, y[k]-j)
-            temp += abs(x[k]-i)
-            temp += abs(y[k]-j)
-        
-        # print(temp)
-        if(sum[cnt] > temp): sum[cnt] = temp
+            cnt+=1
 
-        cnt+=1
+# k 번째 수가 k개 만큼 모였을 때 이동해야 하는 횟수 구하기
+# 해당 개수만큼 더했을 때 최소가 되는 수
 
-# print(sum)
-print(min(sum))
+for i in range (n-1):
+    sum[i].sort()
+
+m = list(100_000_000 for _ in range( n ))
+for i in range( n ):
+    for j in range( len(sum) ):
+        s = 0
+        for k in range(i+1):
+            s += sum[j][k]
+        if(m[i] > s):
+            m[i] = s
+
+print(*m)
