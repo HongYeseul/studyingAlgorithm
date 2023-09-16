@@ -19,6 +19,9 @@
 # 따라서 해당 예시(15,14) (15,16) (14,15) (16,15)의 경우
 # (14, 14) (14, 15) (14, 16) (15,14) (15,15) (15,16) ... (16,16) 총 9개의 좌표를 확인 해야 한다!
 
+
+############기존 짰던 코드와 유사하게 수정한 방법(2차, 비효율적)##############
+
 n = int(input())
 x = []
 y = []
@@ -27,39 +30,63 @@ for i in range(n):
     tx, ty = map(int, input().split())
     x.append(tx)
     y.append(ty)
+    
+dist = list()
 
-minX = min(x)
-minY = min(y)
-maxX = max(x)
-maxY = max(y)
+for i in x:
+    for j in y:
+        # 체커가 있는 위치에서 다른 좌표로의 거리 계산
+        d = []
+        for c in range(n):
+            d.append(abs(i-x[c])+abs(j-y[c]))
 
-sum = [ list(100_000_000 for _ in range(n)) for _ in range((maxY-minY+1)*(maxX-minX+1)) ]
-
-# 아예 순서가 잘못 돼서 코드를 수정했다.
-# 체커가 있는 위치에서 모든 좌표로의 거리를 계산 해 비교 해야한다...
-
-for co in range(n):
-    cnt = 0
-    for i in range(minX, maxX+1):
-        for j in range(minY, maxY+1):
-            # 체커가 있는 위치에서 모든 좌표로의 거리 계산
-            sum[cnt][co] = abs(i-x[co])+abs(j-y[co])
-
-            cnt+=1
-
-# k 번째 수가 k개 만큼 모였을 때 이동해야 하는 횟수 구하기
-# 해당 개수만큼 더했을 때 최소가 되는 수
-
-for i in range (n-1):
-    sum[i].sort()
+        d.sort()
+        dist.append(d)
 
 m = list(100_000_000 for _ in range( n ))
-for i in range( n ):
-    for j in range( len(sum) ):
+for i in range( n*n ):
+    for j in range( n ):
         s = 0
-        for k in range(i+1):
-            s += sum[j][k]
-        if(m[i] > s):
-            m[i] = s
+        for k in range(j+1):
+            s += dist[i][k]
+        if(m[j] > s):
+            m[j] = s
 
 print(*m)
+
+
+
+###########인강 강사님 코드 구조로 수정한 방법(1차, 효율적)#############
+
+n = int(input())
+x = []
+y = []
+result = [-1]*n
+
+
+for _ in range(n):
+    tx, ty = map(int, input().split())
+    x.append(tx)
+    y.append(ty)
+
+for i in x:
+    for j in y:
+        # 체커가 있는 위치에서 다른 좌표로의 거리 계산
+        dist = []
+        for k in range(n):
+            dist.append(abs(x[k]-i)+abs(y[k]-j))
+        
+        # 가까운 순으로 정렬하기
+        dist.sort()
+
+        # m개의 체커가 같은 곳에 모일 때의 최소 비용을 계산
+        tmp = 0
+        for m in range( len(dist)):
+            d = dist[m]
+            tmp += d
+            if result[m] == -1:
+                result[m] = tmp
+            else:
+                result[m] = min(tmp, result[m])
+
+print(*result)
