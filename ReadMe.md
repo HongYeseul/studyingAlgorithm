@@ -2,4 +2,6 @@
 - [프로그래머스](https://programmers.co.kr/learn/challenges)
 - [백준](https://www.acmicpc.net/)
 
-```* ✅ means solved```
+```* ✅: 성공```
+```* ❌: 푸는 중```
+```* ❓: 성공했으나, 좀 더 이해 필요```
