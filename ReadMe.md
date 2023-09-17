@@ -1,4 +1,4 @@
-####알고리즘 문제를 풀며 공부한 기록을 하는 공간입니다.
+#### 알고리즘 문제를 풀며 공부한 기록을 하는 공간입니다.
 
 <img align="right" style="margin-left:10px" src="http://mazassumnida.wtf/api/v2/generate_badge?boj=ghd8119">
 
@@ -15,7 +15,6 @@
 
 ```
 
-##
 
 ```👩‍💻 나중에 다시 풀어보자!```
 
