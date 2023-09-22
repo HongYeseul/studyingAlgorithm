@@ -18,7 +18,7 @@
 
 ```👩‍💻 나중에 다시 풀어보자!```
 
-[백준 #17836(BFS)](https://www.acmicpc.net/problem/17836)
+[<백준 #17836(BFS)>](https://www.acmicpc.net/problem/17836) [<백준 #2247(정수론)>](https://www.acmicpc.net/problem/2247)
 
 
 ---
