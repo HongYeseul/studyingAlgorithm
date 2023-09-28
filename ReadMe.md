@@ -22,5 +22,5 @@
 
 
 ---
-- [프로그래머스](https://programmers.co.kr/learn/challenges)
-- [백준](https://www.acmicpc.net/)
+## History
+- ```2023.09.28.``` 🤍 Silver 2 
