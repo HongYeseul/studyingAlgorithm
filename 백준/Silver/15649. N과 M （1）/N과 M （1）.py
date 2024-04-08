@@ -1,6 +1,8 @@
+N, M = map(int, input().split())
+
+arr = []
 
 def recurse(num):
-
     if num == M:
         print(*arr)
         return
@@ -11,10 +13,5 @@ def recurse(num):
         arr.append(i)
         recurse(num+1)
         arr.pop()
-
-
-
-N, M = map(int, input().split())
-arr = []
 
 recurse(0)
