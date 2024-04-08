@@ -1,23 +1,19 @@
-# 백준 15650 N과M(2) (https://www.acmicpc.net/problem/15650)
+N, M = map(int, input().split())
 
-def recurse(num):
+arr = []
 
-    if num == M:
+def recurse(n):
+    if n == M:
         print(*arr)
         return
     
-    for i in range(1, N+1):
-        if i in arr:
+    for i in range(1, N + 1):
+        if i in arr :
             continue
-        if len(arr) >= 1 and max(arr) > i:
+        if len(arr) > 0 and arr[len(arr)-1] >= i:
             continue
         arr.append(i)
-        recurse(num+1)
+        recurse(n + 1)
         arr.pop()
-
-
-
-N, M = map(int, input().split())
-arr = []
 
 recurse(0)
