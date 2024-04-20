@@ -1,5 +1,6 @@
-N = int(input())
-ingre = [list(map(int, input().split())) for _ in range(N)]
+import sys
+N = int(sys.stdin.readline())
+ingre = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
 answer = 99999999
 
 def recurse(index, s, b, use):
