@@ -1,23 +1,29 @@
-N = int(input())
-interview = [list(map(int, input().split())) for _ in range(N)]
+import sys
+sys.setrecursionlimit(99999999)
 
+N = int(sys.stdin.readline())
+interview = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+dp = [-1 for _ in range(N+1)]
 answer = 0
-def recurse(date, price):
+
+def recurse(idx):
     global answer
-    # 상담이 딱 맞게 이뤄 졌다면
-    if date == N:
-        answer = max(answer, price)
-        return
 
-    # 모든 상담 조합을 봤다면
-    if date > N - 1:
-        return
+    if idx > N:
+        return -999999999
+    
+    if idx == N :
+        return 0
+    
+    # 만약 값이 있으면 이미 찾았다는 뜻이므로 pass
+    if dp[idx] != -1:
+        return dp[idx]
 
-    # 상담을 잡았을 때
-    recurse(date + interview[date][0], price + interview[date][1])
+    # 상담을 받거나, 안 받거나 그 중에서 더 많은 '돈'을 버는 경우 내 DP 테이블에 저장하겠다.
+    dp[idx] = max(recurse(idx + interview[idx][0]) + interview[idx][1], recurse(idx+1))
 
-    # 상담을 잡지 않았을 때
-    recurse(date+1, price)
+    return dp[idx]
 
-recurse(0,0)
-print(answer)
+recurse(0)
+
+print(dp[0])
