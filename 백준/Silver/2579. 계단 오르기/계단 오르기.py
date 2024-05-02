@@ -1,22 +1,26 @@
 import sys
 
-input = sys.stdin.readline
-
-n = int(input())
-
-# 계단의 숫자를 초기화 합니다. 1층은 1번째(not 0번째) 인덱스에 저장합니다.
+N = int(sys.stdin.readline())
 stairs = [0] * 301
-for i in range(1, n + 1):
-    stairs[i] = int(input())
+for i in range(1, N + 1):
+    stairs[i] = int(sys.stdin.readline())
 
-# dp 배열을 초기화합니다.
 dp = [0] * 301
 dp[1] = stairs[1]
 dp[2] = stairs[1] + stairs[2]
 dp[3] = max(stairs[1] + stairs[3], stairs[2] + stairs[3])
 
-# 점화식을 계산합니다.
-for i in range(4, n + 1):
-    dp[i] = max(dp[i - 3] + stairs[i - 1] + stairs[i], dp[i - 2] + stairs[i])
+# def solve(idx): # 마지막 계단에서부터 내려가면서 점수 계산
+#     if idx == 3: 
+#         return stairs[idx]
+#     if idx < 3:
+#         return -999999
+#     # 한 계단 오르기, 두 계단 오르기
+#     dp[idx] = max(dp[idx-3] + solve(idx-1) + stairs[idx], dp[idx-2] + solve(idx))
+    # return stairs[idx]
 
-print(dp[n])
+for idx in range(4, N+1):
+    dp[idx] = max(dp[idx-3] + stairs[idx-1] + stairs[idx], dp[idx-2] + stairs[idx])
+
+# solve(N)
+print(dp[N])
