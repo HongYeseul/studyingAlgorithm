@@ -4,6 +4,11 @@ class Solution {
         var visited: Array<BooleanArray> = Array(image.size) { BooleanArray(image[0].size) }
 
         var startColor = image[sr][sc]
+
+        // 만약 startColor와 color가 동일하다면 원본 return
+        if (startColor == color) {
+            return image
+        }
         fun dfs(nodeX: Int, nodeY: Int) {
 
             // 만약 벽이거나 다른 색상을 만난다면 return
@@ -12,7 +17,7 @@ class Solution {
             }
 
             // 만약 왔었던 node라면 return
-            if (visited[nodeX][nodeY] == true) return
+            if (image[nodeX][nodeY] == color) return
 
             // 컬러 색칠
             image[nodeX][nodeY] = color
