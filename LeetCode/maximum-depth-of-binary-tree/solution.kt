@@ -11,20 +11,14 @@
 class Solution {
     fun maxDepth(root: TreeNode?): Int {
 
-        fun dfs(node: TreeNode?, depth: Int): Int {
-
-            if (node?.left == null && node?.right == null) {
-                return depth
+        fun dfs(node: TreeNode?): Int {
+            if (node == null) {
+                return 0
             }
 
             // 왼쪽 오른쪽 들어가기
-            println(node.`val`)
-            return maxOf(dfs(node.left, depth +1), dfs(node.right, depth +1))
+            return 1 + maxOf(dfs(node.left), dfs(node.right))
         }
-        
-        if (root == null) {
-            return 0
-        }
-        return dfs(root, 0) +1
+        return dfs(root)
     }
 }
