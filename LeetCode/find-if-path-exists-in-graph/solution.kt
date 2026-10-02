@@ -26,7 +26,6 @@ class Solution {
 
             visited[node] = true
             // 들어가기 - 연결된 노드 전부
-            println(graph[node])
             for (next in graph[node]) {
                 dfs(next)
             }
