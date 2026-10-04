@@ -1,32 +1,24 @@
 class Solution {
     fun solution(progresses: IntArray, speeds: IntArray): IntArray {
         var answer = mutableListOf<Int>()
-        var days = IntArray(progresses.size)
-        
-        for (i in 0 until progresses.size) {
-            
-            // 필요한 날짜 세기
-            var d = (100 - progresses[i]) / speeds[i]
-            if ((100 - progresses[i]) % speeds[i] > 0) d+=1
-            
-            days[i] = d
-            
+        val days = IntArray(progresses.size) { i -> 
+            // 각 기능이 얼마나 걸리는지 계산
+            (100 - progresses[i] + speeds[i] -1) / speeds[i]
         }
         
-        // println(days.contentToString())
         
         var start = days[0]
         var count = 0
-        for (i in 0 until progresses.size) {
-            // println("start: $start count: $count answer $answer")
+        for (n in days) {
             
-            if (start >= days[i]) {
+            if (start >= n) {
                 count+=1
             } else {
                 answer.add(count)
                 count = 1
-                start = days[i]
+                start = n
             }
+            
         }
         answer.add(count)
         
