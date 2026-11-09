@@ -28,7 +28,7 @@ class Solution:
         # print(start, end, minSize)
         # print(sumArr)
 
-        if end == minSize:
+        if minSize == len(nums) + 1:
             return 0
 
         return minSize
