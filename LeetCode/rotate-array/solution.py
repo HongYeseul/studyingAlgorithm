@@ -4,9 +4,6 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         rotate = k % len(nums)
-        
         if rotate == 0 or len(nums) <= 1:
             return
-        arrLeft = nums[:-rotate]
-        arrRight = nums[len(nums)-rotate:]
-        nums[:] = arrRight + arrLeft
+        nums[:] = nums[len(nums)-rotate:] + nums[:-rotate]
