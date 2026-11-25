@@ -7,7 +7,8 @@ class Solution:
         """
         dq = deque(nums)
 
-        for i in range (0,k):
+        rotate = k % len(nums)
+        for i in range (0,rotate):
             n = dq.pop()
             dq.appendleft(n)
         
